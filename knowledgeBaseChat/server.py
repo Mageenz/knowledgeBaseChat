@@ -80,14 +80,18 @@ def stream_chat(messages: List[Dict[str, str]]):
         
         # 构建系统提示，包含检索到的知识
         system_prompt = "你是一个有帮助的AI助手。请用中文回答用户的问题，回答要详细、准确、有礼貌。\n\n"
-        system_prompt += "以下是相关的知识：\n"
-        for doc in docs:
-            system_prompt += f"- 内容：{doc['content']}\n"
-            if doc.get('metadata'):
-                system_prompt += f"  来源：{doc['metadata'].get('source', '未知')}\n"
-                if 'page' in doc['metadata']:
-                    system_prompt += f"  页码：{doc['metadata']['page']}\n"
-            system_prompt += "\n"
+        
+        if not docs:
+            system_prompt += "抱歉，我在知识库中没有找到与您问题相关的信息。我会尽力根据我的知识来回答您的问题。\n\n"
+        else:
+            system_prompt += "以下是相关的知识：\n"
+            for doc in docs:
+                system_prompt += f"- 内容：{doc['content']}\n"
+                if doc.get('metadata'):
+                    system_prompt += f"  来源：{doc['metadata'].get('source', '未知')}\n"
+                    if 'page' in doc['metadata']:
+                        system_prompt += f"  页码：{doc['metadata']['page']}\n"
+                system_prompt += "\n"
         
         # 将消息转换为正确的格式
         chain_messages = [

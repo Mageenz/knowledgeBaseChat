@@ -181,15 +181,5 @@ Chinook.db
 .vercel
 .turbo
 
-./frontend/node_modules
-./frontend/dist
 
-./chroma_db
-
-
-./knowledgeRag/chroma_db
-./knowledgeRag/__pycache__
-./knowledge/chroma_db
-./knowledge/__pycache__
-
-./examples
+examples
